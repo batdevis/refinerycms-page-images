@@ -23,6 +23,7 @@ module Refinery
         require 'refinerycms-pages'
         Refinery::Page.send :has_many_page_images
         Refinery::Blog::Post.send :has_many_page_images if defined?(::Refinery::Blog)
+        Refinery::News::Item.send :has_many_page_images if defined?(::Refinery::News)
         Refinery::Image.module_eval do
           has_many :image_pages, :dependent => :destroy
         end
@@ -35,6 +36,12 @@ module Refinery
 
         if defined?(Refinery::Blog::Tab)
           Refinery::Blog::Tab.register do |tab|
+            register tab
+          end
+        end
+
+        if defined?(Refinery::News::Tab)
+          Refinery::News::Tab.register do |tab|
             register tab
           end
         end
